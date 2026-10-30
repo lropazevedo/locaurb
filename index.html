@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locaurb | Locação de veículos elétricos em Petrolina</title>
+<meta name="description" content="A Locaurb oferece veículos elétricos com gestão profissional, suporte e acesso facilitado à recarga para motoristas de aplicativo em Petrolina, Pernambuco.">
+<meta name="theme-color" content="#1E1E18">
+<link rel="canonical" href="https://www.locaurb.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Locaurb | Locação de veículos elétricos">
+<meta property="og:description" content="Mais que um carro. Uma estrutura de mobilidade, em Petrolina, Pernambuco.">
+<meta property="og:url" content="https://www.locaurb.com.br/">
+<meta property="og:image" content="https://www.locaurb.com.br/assets/og.jpg">
+<link rel="icon" type="image/png" href="assets/simbolo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --grafite:#1E1E18;
+  --grafite-2:#2A2A23;
+  --gelo:#DDEFED;
+  --branco:#FBFDFC;
+  --circuito:#3D7A74;
+  --asfalto:#5C615C;
+  --gelo-texto:#B9CBC8;
+  --linha-clara:rgba(221,239,237,.2);
+  --linha-escura:rgba(30,30,24,.16);
+  --ease:cubic-bezier(.22,.8,.26,1);
+  --ease-suave:cubic-bezier(.45,0,.2,1);
+  --tshadow:0 1px 2px rgba(15,15,11,.9),0 3px 12px rgba(15,15,11,.65),0 10px 44px rgba(15,15,11,.7);
+  --gutter:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0}
+html{overflow-x:hidden;overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;overflow-x:clip;background:var(--grafite);color:var(--gelo);font:400 18px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;animation:page-in .7s var(--ease) both}
+@keyframes page-in{from{opacity:0}}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:Sora,system-ui,sans-serif;font-weight:700;line-height:1.1;letter-spacing:-.02em}
+h2{font-size:clamp(34px,5vw,64px);text-wrap:balance}
+.leve{font-weight:300}
+.kicker{font:500 13px/1.3 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.pular{position:fixed;left:16px;top:-60px;z-index:60;background:var(--gelo);color:var(--grafite);padding:10px 16px;border-radius:8px;transition:top .25s var(--ease)}
+.pular:focus{top:12px}
+:focus-visible{outline:2px solid var(--gelo);outline-offset:3px;border-radius:4px}
+.claro :focus-visible{outline-color:var(--circuito)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border:0;border-radius:10px;background:var(--gelo);color:var(--grafite);font:600 17px/1 Inter,sans-serif;text-decoration:none;cursor:pointer;transition:transform .35s var(--ease),background-color .35s var(--ease)}
+.btn:hover{background:var(--branco);transform:translateY(-2px)}
+.btn svg{width:20px;height:20px}
+@media (pointer:coarse){.topo a{min-height:44px;display:inline-flex;align-items:center}}
+
+/* Ambiente fixo: malha de pontos do Circuito de energia, em deriva lenta */
+.ambiente{position:fixed;inset:-80px;z-index:-1;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(221,239,237,.13) 1px,transparent 1.4px);background-size:40px 40px;animation:deriva 90s linear infinite alternate;animation-delay:-20s}
+@keyframes deriva{to{transform:translate3d(40px,40px,0)}}
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+
+/* Navegação */
+.topo{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px var(--gutter);background:rgba(30,30,24,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--linha-clara)}
+.topo img{width:148px;height:auto}
+.topo nav{display:flex;align-items:center;gap:30px}
+.topo nav a{font:500 15px/1 Inter,sans-serif;text-decoration:none;position:relative;padding:6px 0}
+.topo nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.topo nav a:hover::after{transform:scaleX(1)}
+@media (max-width:720px){.topo nav a:not(:last-child){display:none}}
+
+/* Hero: por padrão é estático (celular, movimento reduzido, sem JS) */
+.hero{position:relative;background:var(--grafite)}
+.palco{position:relative;display:flex;flex-direction:column;overflow:hidden}
+.quadro{position:relative;height:min(62vh,520px);min-height:320px;overflow:hidden;margin-top:60px}
+.quadro picture,.quadro img{width:100%;height:100%;object-fit:cover;object-position:18% 50%}
+.quadro svg{display:none}
+.quadro::after{content:"";position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(to bottom,rgba(30,30,24,0),var(--grafite))}
+.faixa{padding:0 var(--gutter)}
+.faixa[data-so-scrub]{display:none}
+.faixa-1{position:absolute;top:calc(60px + min(62vh,520px) - 22vh);left:0;right:0;z-index:2;text-shadow:var(--tshadow)}
+.faixa-1 h1{font-size:clamp(38px,9.5vw,64px);max-width:12ch;color:var(--branco)}
+.dica{display:none}
+.faixa-4{padding-top:44px;padding-bottom:64px}
+.faixa-4 .kicker{color:var(--gelo-texto);margin-bottom:14px}
+.faixa-4 .titulo{font:600 clamp(26px,5vw,36px)/1.2 Sora,sans-serif;letter-spacing:-.015em;color:var(--branco);max-width:20ch}
+.faixa-4 .sub{margin:14px 0 26px;max-width:42ch;color:var(--gelo)}
+
+/* Hero com scroll: só quando o JS liga .scrub no html */
+.scrub .hero{height:500vh}
+.scrub .palco{position:sticky;top:0;height:100vh;display:block}
+.scrub .quadro{position:absolute;inset:0;height:auto;margin:0;will-change:transform;transform-origin:100% 62%;transform:scale(var(--zoom,1.7))}
+.scrub .quadro img{object-position:0 50%}
+.scrub .quadro svg{display:block;position:absolute;inset:0;width:100%;height:100%}
+.scrub .quadro::after{display:none}
+.tinta{display:none}
+.scrub .tinta{display:block;position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 95% at 45% 45%,rgba(30,30,24,0) 40%,rgba(30,30,24,.5) 100%)}
+.scrub .faixa,.scrub .faixa[data-so-scrub]{display:block;position:absolute;top:50%;left:auto;right:var(--gutter);width:min(44vw,600px);padding:0;transform:translateY(-50%);opacity:0;visibility:hidden;text-shadow:var(--tshadow)}
+.scrub .faixa-1{left:var(--gutter);right:auto;top:56%;opacity:1;visibility:visible}
+.veu{display:none}
+.scrub .veu{display:block;position:absolute;inset:0;pointer-events:none;opacity:0}
+.scrub .veu-e{opacity:1;background:linear-gradient(to right,rgba(22,22,17,.84) 0%,rgba(22,22,17,.68) 34%,rgba(22,22,17,0) 66%)}
+.scrub .veu-d{background:linear-gradient(to left,rgba(22,22,17,.86) 0%,rgba(22,22,17,.72) 46%,rgba(22,22,17,0) 68%)}
+.scrub .faixa-1 h1{font-size:clamp(46px,6.4vw,92px);max-width:11ch}
+.scrub .faixa .grande{font:700 clamp(40px,5.2vw,76px)/1.08 Sora,sans-serif;letter-spacing:-.02em;color:var(--branco)}
+.scrub .faixa .grande .leve{display:block}
+.scrub .faixa .apoio{margin-top:14px;font-size:clamp(18px,1.5vw,22px);color:var(--branco)}
+.scrub .faixa-4{padding:0}
+.scrub .faixa-4 .kicker{color:var(--gelo)}
+.scrub .faixa-4 .titulo{font-size:clamp(32px,3.6vw,52px)}
+.scrub .faixa-4 .sub{color:var(--branco)}
+.scrub .faixa .btn{text-shadow:none}
+/* entradas guiadas por --k, só transform e opacity */
+.scrub .faixa-2 .grande{transform:scale(calc(.86 + .14*var(--k,0)));transform-origin:left center}
+.scrub .faixa-3 .grande,.scrub .faixa-3 .apoio{transform:translateY(calc((1 - var(--k,0))*26px))}
+.scrub .faixa-4 > *{--kp:clamp(0,(var(--k,0) - var(--t,0))*2.4,1);opacity:var(--kp);transform:translateY(calc((1 - var(--kp))*22px))}
+.scrub .faixa-4 > :nth-child(2){--t:.12}
+.scrub .faixa-4 > :nth-child(3){--t:.3}
+.scrub .faixa-4 > :nth-child(4){--t:.48}
+.scrub .dica{display:flex;align-items:center;gap:10px;position:absolute;left:var(--gutter);bottom:30px;font:500 14px/1 Inter,sans-serif;color:var(--branco);background:rgba(30,30,24,.62);padding:10px 14px;border-radius:10px;backdrop-filter:blur(8px);transition:opacity .4s var(--ease)}
+.scrub .dica i{display:block;width:1.5px;height:16px;background:currentColor;animation:dica 2.4s var(--ease-suave) infinite;animation-delay:-.6s;transform-origin:top}
+@keyframes dica{0%{transform:scaleY(.2)}60%{transform:scaleY(1)}100%{transform:scaleY(.2)}}
+@media (max-height:560px){.scrub .dica{display:none}}
+.rota{fill:none;stroke:var(--gelo);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:var(--traco,1)}
+.rota-sombra{fill:none;stroke:rgba(30,30,24,.45);stroke-width:6;stroke-dasharray:1;stroke-dashoffset:var(--traco,1)}
+.chegada{fill:var(--gelo);opacity:var(--ponto,0)}
+.chegada-halo{fill:none;stroke:var(--gelo);stroke-width:2;opacity:calc(var(--ponto,0)*.6)}
+
+/* Reveals */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .rv.fim{transition-delay:0s!important}
+
+.secao{padding:clamp(80px,11vw,160px) var(--gutter)}
+.miolo{max-width:1240px;margin:0 auto}
+.claro{background:var(--branco);color:var(--grafite)}
+.gelo{background:var(--gelo);color:var(--grafite)}
+
+/* Quem somos */
+.quem .kicker{color:var(--circuito)}
+.quem h2{font-size:clamp(40px,7.4vw,104px);max-width:13ch;margin-top:18px}
+.quem .texto{display:grid;grid-template-columns:repeat(12,1fr);margin-top:clamp(36px,5vw,72px)}
+.quem .texto p{grid-column:6/-1;max-width:56ch;font-size:clamp(18px,1.5vw,20px);color:#3f433f}
+.numeros{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(56px,7vw,96px);border-top:1.5px solid var(--grafite)}
+.numeros > div{padding:22px 20px 0 0}
+.numeros > div + div{padding-left:20px;border-left:1px solid var(--linha-escura)}
+.numeros b{display:block;font:700 clamp(30px,3.6vw,52px)/1.1 Sora,sans-serif;letter-spacing:-.02em}
+.numeros b.menor{font-size:clamp(22px,2.2vw,30px);line-height:1.2;padding-top:.3em}
+.numeros span{display:block;margin-top:8px;font:500 14px/1.3 Inter,sans-serif;color:var(--asfalto)}
+@media (max-width:860px){
+  .quem .texto p{grid-column:1/-1}
+  .numeros{grid-template-columns:1fr 1fr}
+  .numeros > div{padding:20px 14px 22px 0;border-bottom:1px solid var(--linha-escura)}
+  .numeros > div:nth-child(odd){padding-left:0;border-left:0}
+}
+
+/* Estrutura */
+.estrutura .miolo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,110px);align-items:start}
+.recorte{position:sticky;top:110px}
+.recorte figure{overflow:hidden;border-radius:0 0 50% 50%/0 0 34% 34%;aspect-ratio:700/790;background:var(--grafite-2)}
+.recorte img{width:100%;height:100%;object-fit:cover}
+.estrutura .kicker{color:var(--gelo-texto)}
+.estrutura h2{margin-top:16px}
+.estrutura .lede{margin-top:18px;font-size:clamp(18px,1.6vw,21px);max-width:38ch;color:var(--gelo)}
+.itens{list-style:none;padding:0;margin-top:44px;border-top:1px solid var(--linha-clara)}
+.itens li{display:grid;grid-template-columns:52px 1fr;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--linha-clara)}
+.itens .n{font:500 13px/1 Inter,sans-serif;letter-spacing:.08em;color:var(--gelo-texto)}
+.itens h3{font-size:clamp(21px,2vw,27px);font-weight:600}
+.itens p{grid-column:2;margin-top:6px;color:var(--gelo-texto);font-size:17px}
+@media (max-width:860px){.estrutura .miolo{grid-template-columns:1fr}.recorte{position:static;max-width:440px}}
+
+/* Energia */
+.energia{border-top:1px solid var(--linha-clara)}
+.energia .topo-sec{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:end}
+.energia .kicker{color:var(--gelo-texto);margin-bottom:16px}
+.energia .topo-sec p:not(.kicker){color:var(--gelo-texto);max-width:44ch}
+.circuito{--p:0;position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(48px,6vw,84px)}
+.circuito::before,.circuito::after{content:"";position:absolute;left:12.5%;right:12.5%;top:13px;height:2px;background:var(--linha-clara)}
+.circuito::after{background:var(--gelo);transform:scaleX(var(--p));transform-origin:left}
+.no{position:relative;z-index:1;text-align:center;padding:0 8px}
+.no i{display:block;position:relative;width:28px;height:28px;margin:0 auto 14px;border-radius:50%;background:var(--grafite);border:2px solid var(--circuito)}
+.no i::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--gelo);opacity:0;transform:scale(.4);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.no.on i::after{opacity:1;transform:none}
+.no b{display:block;font:600 clamp(16px,1.7vw,21px)/1.25 Sora,sans-serif}
+.no span{display:block;margin-top:4px;font-size:14px;line-height:1.35;color:var(--gelo-texto)}
+.segurar-linha{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:44px;justify-content:center}
+.segurar{--p:0;position:relative;overflow:hidden;min-width:270px;min-height:58px;padding:0 28px;border-radius:12px;border:1.5px solid var(--gelo);background:transparent;color:var(--gelo);font:600 17px/1 Inter,sans-serif;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:color .3s var(--ease)}
+.segurar::before{content:"";position:absolute;inset:0;background:var(--gelo);transform:scaleX(var(--p));transform-origin:left}
+.segurar span{position:relative;mix-blend-mode:difference;color:var(--gelo)}
+.energia.carregada .segurar{color:var(--grafite)}
+.energia.carregada .segurar span{mix-blend-mode:normal;color:var(--grafite)}
+.ganhos{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:clamp(44px,5vw,68px);padding-top:26px;border-top:1px solid var(--linha-clara)}
+.ganhos li{list-style:none;display:flex;gap:12px;align-items:baseline;font:600 clamp(18px,1.6vw,22px)/1.3 Sora,sans-serif;color:var(--gelo-texto);transition:color .7s var(--ease);transition-delay:calc(var(--i,0)*160ms)}
+.ganhos{padding-left:0}
+.ganhos li::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:var(--circuito);transition:background-color .7s var(--ease);transition-delay:inherit}
+.energia.carregada .ganhos li{color:var(--branco)}
+.energia.carregada .ganhos li::before{background:var(--gelo)}
+@media (max-width:760px){
+  .energia .topo-sec{grid-template-columns:1fr}
+  .circuito{grid-template-columns:1fr;gap:26px}
+  .circuito::before,.circuito::after{left:13px;right:auto;top:14px;bottom:14px;width:2px;height:auto}
+  .circuito::after{transform:scaleY(var(--p));transform-origin:top}
+  .no{display:grid;grid-template-columns:28px 1fr;column-gap:16px;text-align:left;padding:0}
+  .no i{margin:0;grid-row:span 2}
+  .ganhos{grid-template-columns:1fr}
+  .segurar{width:100%}
+}
+
+/* Perguntas */
+.perguntas .miolo{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,6vw,90px)}
+.perguntas h2{font-size:clamp(32px,4vw,52px)}
+.perguntas .kicker{color:#2C5F5A;margin-bottom:16px}
+details{border-top:1.5px solid var(--grafite)}
+details:last-child{border-bottom:1.5px solid var(--grafite)}
+summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:68px;padding:16px 0;font:600 clamp(19px,1.8vw,23px)/1.3 Sora,sans-serif;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary i{position:relative;flex:none;width:18px;height:18px}
+summary i::before,summary i::after{content:"";position:absolute;left:0;right:0;top:8px;height:2px;background:currentColor;transition:transform .4s var(--ease)}
+summary i::after{transform:rotate(90deg)}
+details[open] summary i::after{transform:none}
+details p{padding:0 38px 22px 0;max-width:58ch;color:#33372f}
+@media (max-width:860px){.perguntas .miolo{grid-template-columns:1fr}}
+
+/* Fechamento */
+.fim-pagina{position:relative;overflow:hidden;padding:clamp(100px,14vw,190px) var(--gutter);text-align:center}
+.fim-pagina .foto{position:absolute;inset:0;background:url(assets/cidade.jpg) center 60%/cover}
+.fim-pagina .foto::after{content:"";position:absolute;inset:0;background:rgba(30,30,24,.74)}
+.fim-pagina .miolo{position:relative}
+.fim-pagina .kicker{color:var(--gelo)}
+.fim-pagina h2{font-size:clamp(46px,9vw,128px);margin:16px 0 18px;color:var(--branco)}
+.fim-pagina p.lede{max-width:46ch;margin:0 auto 32px;color:var(--branco);font-size:clamp(18px,1.6vw,21px)}
+
+footer{padding:40px var(--gutter);border-top:1px solid var(--linha-clara);background:var(--grafite)}
+footer .miolo{display:flex;align-items:center;justify-content:space-between;gap:20px 40px;flex-wrap:wrap;font:500 14px/1.4 Inter,sans-serif;color:var(--gelo-texto)}
+footer img{width:132px;height:auto}
+footer a{min-height:44px;display:inline-flex;align-items:center}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="pular" href="#main">Pular para o conteúdo</a>
+<div class="ambiente" aria-hidden="true"></div>
+
+<header class="topo">
+  <a href="#main" aria-label="Locaurb, início"><img src="assets/logo-negativo.png" alt="Locaurb" width="420" height="87"></a>
+  <nav aria-label="Principal">
+    <a href="#quem">Quem somos</a>
+    <a href="#estrutura">Estrutura</a>
+    <a href="#energia">Recarga</a>
+    <a href="https://www.instagram.com/locaurb/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="hero" aria-label="Apresentação">
+    <div class="palco">
+      <div class="quadro" aria-hidden="true">
+        <picture>
+          <source media="(max-width:720px)" srcset="assets/hero-960.jpg">
+          <img src="assets/hero.jpg" alt="" width="1672" height="941" fetchpriority="high">
+        </picture>
+        <svg viewBox="0 0 1672 941" preserveAspectRatio="xMinYMid slice">
+          <path class="rota-sombra" pathLength="1" d="M1672 880H215L113 778"/>
+          <path class="rota" pathLength="1" d="M1672 880H215L113 778"/>
+          <circle class="chegada-halo" cx="113" cy="778" r="15"/>
+          <circle class="chegada" cx="113" cy="778" r="7"/>
+        </svg>
+      </div>
+      <div class="tinta" aria-hidden="true"></div>
+      <div class="veu veu-e" aria-hidden="true"></div>
+      <div class="veu veu-d" aria-hidden="true"></div>
+
+      <div class="faixa faixa-1" data-a="0" data-b=".24">
+        <h1>Seu próximo quilômetro começa aqui.</h1>
+      </div>
+      <div class="faixa faixa-2" data-so-scrub data-a=".27" data-b=".5">
+        <p class="grande"><span class="leve">Mais que um carro.</span> Uma estrutura de mobilidade.</p>
+      </div>
+      <div class="faixa faixa-3" data-so-scrub data-a=".53" data-b=".75">
+        <p class="grande">100% elétrico.</p>
+        <p class="apoio">Rodagem silenciosa e mais conforto a bordo.</p>
+      </div>
+      <div class="faixa faixa-4" data-a=".78" data-b="1">
+        <p class="kicker">Petrolina · PE</p>
+        <p class="titulo">Tecnologia que acompanha o seu trabalho.</p>
+        <p class="sub">Locação e gestão de veículos elétricos para motoristas de aplicativo.</p>
+        <a class="btn" href="#quem">Conheça a Locaurb</a>
+      </div>
+      <div class="dica" aria-hidden="true"><i></i>Role para chegar</div>
+    </div>
+  </section>
+
+  <section class="secao claro quem" id="quem">
+    <div class="miolo">
+      <p class="kicker rv">Quem somos</p>
+      <h2 class="rv" style="--i:1"><span class="leve">Somos uma empresa nova.</span> E nascemos profissionais.</h2>
+      <div class="texto">
+        <p class="rv" style="--i:2">A Locaurb nasceu em Petrolina, Pernambuco, para oferecer locação de veículos 100% elétricos a motoristas profissionais de aplicativo. Entregamos o veículo e tudo o que está em volta dele, para que o profissional trabalhe com mais eficiência.</p>
+      </div>
+      <div class="numeros">
+        <div class="rv"><b data-conta="100">100%</b><span>Frota elétrica</span></div>
+        <div class="rv" style="--i:1"><b data-conta="100">100%</b><span>Frota locada</span></div>
+        <div class="rv" style="--i:2"><b class="menor">BYD Dolphin Mini GL</b><span>O carro da frota</span></div>
+        <div class="rv" style="--i:3"><b class="menor">Petrolina · PE</b><span>Sede operacional</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao estrutura" id="estrutura">
+    <div class="miolo">
+      <div class="recorte rv">
+        <figure><img src="assets/motorista.jpg" alt="Motorista usa o celular encostado em um carro elétrico branco enquanto ele recarrega." width="700" height="790" loading="lazy"></figure>
+      </div>
+      <div>
+        <p class="kicker rv">A estrutura</p>
+        <h2 class="rv" style="--i:1">O carro é a parte que você vê.</h2>
+        <p class="lede rv" style="--i:2">Menos tempo resolvendo problemas, mais tempo para produzir.</p>
+        <ul class="itens">
+          <li class="rv"><span class="n">01</span><h3>Gestão do veículo</h3><p>Cada carro acompanhado de perto, quilômetro por quilômetro.</p></li>
+          <li class="rv"><span class="n">02</span><h3>Acompanhamento</h3><p>Uma equipe que entende a sua rotina. Qualquer dúvida, é só chamar.</p></li>
+          <li class="rv"><span class="n">03</span><h3>Manutenção</h3><p>Carro revisado e pronto para a rua.</p></li>
+          <li class="rv"><span class="n">04</span><h3>Contrato</h3><p>Administração clara. A gente explica o que faz.</p></li>
+          <li class="rv"><span class="n">05</span><h3>Recarga</h3><p>Acesso facilitado pela Eletrourb.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao energia" id="energia">
+    <div class="miolo">
+      <div class="topo-sec">
+        <div>
+          <p class="kicker rv">Energia e frota</p>
+          <h2 class="rv" style="--i:1">Da energia ao volante, na mesma operação.</h2>
+        </div>
+        <p class="rv" style="--i:2">A Locaurb faz parte do ecossistema Urb1. Ao lado dela está a Eletrourb, com infraestrutura de recarga conectada à geração própria de energia solar.</p>
+      </div>
+      <div class="circuito rv" id="circuito">
+        <div class="no"><i></i><b>Sol</b><span>Geração própria</span></div>
+        <div class="no"><i></i><b>Eletrourb</b><span>Recarga integrada</span></div>
+        <div class="no"><i></i><b>Locaurb</b><span>Locação e gestão de frota</span></div>
+        <div class="no"><i></i><b>Motorista</b><span>Na rua, produzindo</span></div>
+      </div>
+      <div class="segurar-linha rv">
+        <button class="segurar" id="segurar" type="button" aria-describedby="segurar-info"><span id="segurar-texto">Segure para carregar</span></button>
+        <span class="sr" id="segurar-info">Mantenha pressionado para acender o caminho da energia. O conteúdo abaixo já está disponível.</span>
+      </div>
+      <ul class="ganhos">
+        <li style="--i:0">Acesso facilitado à recarga</li>
+        <li style="--i:1">Energia de geração própria</li>
+        <li style="--i:2">Mais controle sobre o custo operacional</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="secao gelo perguntas claro-foco" id="perguntas">
+    <div class="miolo">
+      <div>
+        <p class="kicker rv">Direto ao ponto</p>
+        <h2 class="rv" style="--i:1">O que todo motorista pergunta.</h2>
+      </div>
+      <div class="rv" style="--i:2">
+        <details open>
+          <summary>Onde eu carrego o carro?<i aria-hidden="true"></i></summary>
+          <p>Na estrutura da Eletrourb, que faz parte do mesmo ecossistema da Locaurb. O acesso à recarga é facilitado para quem roda com a gente.</p>
+        </details>
+        <details>
+          <summary>E quando o carro precisa de manutenção?<i aria-hidden="true"></i></summary>
+          <p>A manutenção faz parte da estrutura da Locaurb. A gente cuida do carro para você cuidar das corridas.</p>
+        </details>
+        <details>
+          <summary>Dá para prever os custos?<i aria-hidden="true"></i></summary>
+          <p>Previsibilidade é parte do serviço: contrato claro e mais controle sobre o custo de rodar.</p>
+        </details>
+        <details>
+          <summary>Por que elétrico?<i aria-hidden="true"></i></summary>
+          <p>Rodagem silenciosa, mais conforto para o passageiro e um carro moderno para a rotina de quem vive na rua.</p>
+        </details>
+        <details>
+          <summary>Tem carro disponível agora?<i aria-hidden="true"></i></summary>
+          <p>Hoje não. Nossa frota está 100% locada. As novidades aparecem no nosso Instagram.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="fim-pagina" id="contato">
+    <div class="foto" aria-hidden="true"></div>
+    <div class="miolo">
+      <p class="kicker rv">Hoje, na rua</p>
+      <h2 class="rv" style="--i:1">Frota 100% locada.</h2>
+      <p class="lede rv" style="--i:2">Nossos carros estão trabalhando. Acompanhe a Locaurb e veja o que vem pela frente.</p>
+      <a class="btn rv" style="--i:3" href="https://www.instagram.com/locaurb/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>
+        Siga @locaurb
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="miolo">
+    <img src="assets/logo-negativo.png" alt="Locaurb" width="420" height="87" loading="lazy">
+    <span>Locação de veículos elétricos · Petrolina · PE · Ecossistema Urb1</span>
+    <a href="https://www.instagram.com/locaurb/" target="_blank" rel="noopener">@locaurb</a>
+    <span>© 2026 Locaurb</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, reduz=matchMedia('(prefers-reduced-motion: reduce)');
+  var clamp=function(v,lo,hi){return Math.min(hi,Math.max(lo,v))};
+  var smooth=function(p,a,b){var t=clamp((p-a)/(b-a),0,1);return t*t*(3-2*t)};
+
+  /* ---------- Hero guiado por scroll ---------- */
+  var hero=document.querySelector('.hero'), quadro=document.querySelector('.quadro'), dica=document.querySelector('.dica');
+  var faixas=[].map.call(document.querySelectorAll('.faixa'),function(el,i,todas){
+    return {el:el,a:+el.dataset.a,b:+el.dataset.b,primeira:i===0,ultima:i===todas.length-1,op:-1,k:-1};
+  });
+  var GATES=[
+    '(max-width: 720px)',
+    '(orientation: portrait) and (max-width: 1024px)',
+    '(orientation: portrait) and (pointer: coarse)',
+    '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
+    '(prefers-reduced-motion: reduce)'
+  ];
+  var MQLS=GATES.map(function(q){return matchMedia(q)});
+  var veuE=document.querySelector('.veu-e'), veuD=document.querySelector('.veu-d'), veE=-1, veD=-1;
+  var scrubOn=false, alvo=0, mostrado=0, raf=null, ultimo=0, emTela=true, zoomAtual=-1, tracoAtual=-1, pontoAtual=-1, dicaAtual=-1;
+
+  function progresso(){
+    var r=hero.getBoundingClientRect(), curso=r.height-innerHeight;
+    return curso>0?clamp(-r.top/curso,0,1):0;
+  }
+  function pinta(p){
+    var e=smooth(p,0,.8), zoom=+(1.7-.7*e).toFixed(4);
+    if(zoom!==zoomAtual){zoomAtual=zoom;quadro.style.setProperty('--zoom',zoom)}
+    var traco=+(1-smooth(p,.3,.86)).toFixed(4);
+    if(traco!==tracoAtual){tracoAtual=traco;quadro.style.setProperty('--traco',traco)}
+    var ponto=+smooth(p,.84,.9).toFixed(3);
+    if(ponto!==pontoAtual){pontoAtual=ponto;quadro.style.setProperty('--ponto',ponto)}
+    var d=p<.03?1:0;
+    if(d!==dicaAtual){dicaAtual=d;dica.style.opacity=d}
+    faixas.forEach(function(f){
+      var r=Math.min(.03,(f.b-f.a)/3);
+      var entra=f.primeira?1:smooth(p,f.a,f.a+r), sai=f.ultima?0:smooth(p,f.b-r,f.b);
+      var op=+(entra*(1-sai)).toFixed(3);
+      if(op!==f.op){
+        f.op=op;f.el.style.opacity=op;f.el.style.visibility=op>0?'visible':'hidden';
+      }
+      var k=f.primeira?1:clamp((p-f.a)/.05,0,1);
+      if(Math.abs(k-f.k)>.008||(k!==f.k&&(k===0||k===1))){f.k=k;f.el.style.setProperty('--k',k.toFixed(3))}
+    });
+    var ve=faixas[0].op, vd=Math.max(faixas[1].op,faixas[2].op,faixas[3].op);
+    if(ve!==veE){veE=ve;veuE.style.opacity=ve}
+    if(vd!==veD){veD=vd;veuD.style.opacity=vd}
+  }
+  function tick(now){
+    var dt=Math.min(100,now-(ultimo||now));ultimo=now;
+    mostrado+=(alvo-mostrado)*(1-Math.pow(1-.16,dt/16.667));
+    if(Math.abs(alvo-mostrado)<.0005){mostrado=alvo;raf=null;ultimo=0}
+    else raf=requestAnimationFrame(tick);
+    pinta(mostrado);
+  }
+  function onScroll(){
+    if(!scrubOn)return;
+    alvo=progresso();
+    if(raf===null&&emTela)raf=requestAnimationFrame(tick);
+  }
+  new IntersectionObserver(function(e){emTela=e[0].isIntersecting;if(emTela)onScroll()}).observe(hero);
+
+  function limpaHero(){
+    faixas.forEach(function(f){f.op=-1;f.k=-1;f.el.style.removeProperty('opacity');f.el.style.removeProperty('visibility');f.el.style.removeProperty('--k')});
+    ['--zoom','--traco','--ponto'].forEach(function(n){quadro.style.removeProperty(n)});
+    dica.style.removeProperty('opacity');veuE.style.removeProperty('opacity');veuD.style.removeProperty('opacity');
+    zoomAtual=tracoAtual=pontoAtual=dicaAtual=veE=veD=-1;
+  }
+  function liga(){
+    if(scrubOn)return;scrubOn=true;
+    root.classList.add('scrub');
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll,{passive:true});
+    limpaHero();
+    mostrado=alvo=progresso();pinta(mostrado);
+  }
+  function desliga(){
+    if(!scrubOn)return;scrubOn=false;
+    root.classList.remove('scrub');
+    removeEventListener('scroll',onScroll);
+    removeEventListener('resize',onScroll);
+    if(raf!==null){cancelAnimationFrame(raf);raf=null;ultimo=0}
+    limpaHero();
+  }
+  function modoHero(){
+    if(MQLS.some(function(m){return m.matches}))desliga();else liga();
+  }
+  MQLS.forEach(function(m){m.addEventListener('change',modoHero)});
+  modoHero();
+
+  /* ---------- Reveals e contadores ---------- */
+  var contadores=[].slice.call(document.querySelectorAll('[data-conta]'));
+  function conta(el){
+    if(reduz.matches||el.dataset.feito)return;
+    el.dataset.feito='1';
+    var fim=+el.dataset.conta,t0=performance.now(),ult='';
+    (function passo(t){
+      var q=clamp((t-t0)/1300,0,1),v=Math.round(fim*(1-Math.pow(1-q,3)))+'%';
+      if(v!==ult){ult=v;el.textContent=v}
+      if(q<1&&!reduz.matches)requestAnimationFrame(passo);else el.textContent=fim+'%';
+    })(t0);
+  }
+  var rvObs=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var el=e.target;el.classList.add('in');rvObs.unobserve(el);
+      var b=el.querySelector('[data-conta]');if(b)conta(b);
+      setTimeout(function(){el.classList.add('fim')},1500);
+    });
+  },{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){rvObs.observe(el)});
+
+  /* ---------- Momento interativo: segurar para carregar ---------- */
+  var secao=document.getElementById('energia'), botao=document.getElementById('segurar'), rotulo=document.getElementById('segurar-texto');
+  var circuito=document.getElementById('circuito'), nos=[].slice.call(circuito.querySelectorAll('.no'));
+  var carga=0, segurando=false, rafC=null, ultC=0, cheia=false, escrito=-1;
+  function aplicaCarga(){
+    var v=+carga.toFixed(3);
+    if(v===escrito)return;escrito=v;
+    circuito.style.setProperty('--p',v);botao.style.setProperty('--p',v);
+    nos.forEach(function(n,i){n.classList.toggle('on',v>=i/3-.001&&v>0)});
+  }
+  function completa(){
+    cheia=true;carga=1;aplicaCarga();secao.classList.add('carregada');
+    rotulo.textContent='Carregado. Boas corridas.';
+  }
+  function loopCarga(t){
+    var dt=Math.min(100,t-(ultC||t));ultC=t;
+    carga=clamp(carga+(segurando?dt/1700:-dt/900),0,1);
+    aplicaCarga();
+    if(carga>=1){rafC=null;ultC=0;completa();return}
+    if(segurando||carga>0)rafC=requestAnimationFrame(loopCarga);else{rafC=null;ultC=0}
+  }
+  function comeca(){if(cheia)return;segurando=true;if(rafC===null)rafC=requestAnimationFrame(loopCarga)}
+  function solta(){segurando=false}
+  botao.addEventListener('pointerdown',function(e){e.preventDefault();try{botao.setPointerCapture(e.pointerId)}catch(_){}comeca()});
+  ['pointerup','pointercancel','lostpointercapture'].forEach(function(n){botao.addEventListener(n,solta)});
+  botao.addEventListener('contextmenu',function(e){e.preventDefault()});
+  botao.addEventListener('keydown',function(e){if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();comeca()}});
+  botao.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')solta()});
+  botao.addEventListener('blur',solta);
+
+  /* ---------- Movimento reduzido ao vivo ---------- */
+  var fixado=false;
+  function fixaFinal(){
+    contadores.forEach(function(c){c.textContent=c.dataset.conta+'%'});
+    if(!cheia){fixado=true;completa()}
+  }
+  function soltaFinal(){
+    if(!fixado)return;fixado=false;cheia=false;carga=0;segurando=false;
+    secao.classList.remove('carregada');rotulo.textContent='Segure para carregar';aplicaCarga();
+  }
+  if(reduz.matches)fixaFinal();
+  reduz.addEventListener('change',function(e){if(e.matches)fixaFinal();else soltaFinal()});
+
+  document.addEventListener('visibilitychange',function(){document.body.classList.toggle('paused',document.hidden)});
+})();
+</script>
+</body>
+</html>
