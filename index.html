@@ -138,10 +138,10 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
 
 /* Quem somos */
 .quem .kicker{color:var(--circuito)}
-.quem h2{font-size:clamp(40px,7.4vw,104px);max-width:13ch;margin-top:18px}
+.quem h2{font-size:clamp(34px,5.4vw,76px);max-width:21ch;margin-top:18px}
 .quem .texto{display:grid;grid-template-columns:repeat(12,1fr);margin-top:clamp(36px,5vw,72px)}
 .quem .texto p{grid-column:6/-1;max-width:56ch;font-size:clamp(18px,1.5vw,20px);color:#3f433f}
-.numeros{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:clamp(56px,7vw,96px);border-top:1.5px solid var(--grafite)}
+.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:clamp(56px,7vw,96px);border-top:1.5px solid var(--grafite)}
 .numeros > div{padding:22px 20px 0 0}
 .numeros > div + div{padding-left:20px;border-left:1px solid var(--linha-escura)}
 .numeros b{display:block;font:700 clamp(30px,3.6vw,52px)/1.1 Sora,sans-serif;letter-spacing:-.02em}
@@ -152,12 +152,13 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   .numeros{grid-template-columns:1fr 1fr}
   .numeros > div{padding:20px 14px 22px 0;border-bottom:1px solid var(--linha-escura)}
   .numeros > div:nth-child(odd){padding-left:0;border-left:0}
+  .numeros > div:last-child{grid-column:1/-1}
 }
 
 /* Estrutura */
 .estrutura .miolo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,110px);align-items:start}
 .recorte{position:sticky;top:110px}
-.recorte figure{overflow:hidden;border-radius:0 0 50% 50%/0 0 34% 34%;aspect-ratio:700/790;background:var(--grafite-2)}
+.recorte figure{overflow:hidden;border-radius:0 0 50% 50%/0 0 34% 34%;aspect-ratio:834/941;background:var(--grafite-2)}
 .recorte img{width:100%;height:100%;object-fit:cover}
 .estrutura .kicker{color:var(--gelo-texto)}
 .estrutura h2{margin-top:16px}
@@ -298,15 +299,14 @@ footer a{min-height:44px;display:inline-flex;align-items:center}
   <section class="secao claro quem" id="quem">
     <div class="miolo">
       <p class="kicker rv">Quem somos</p>
-      <h2 class="rv" style="--i:1"><span class="leve">Somos uma empresa nova.</span> E nascemos profissionais.</h2>
+      <h2 class="rv" style="--i:1"><span class="leve">Foco em sustentabilidade e entrega de valor real ao mercado.</span> Essa é a nossa marca!</h2>
       <div class="texto">
         <p class="rv" style="--i:2">A Locaurb nasceu em Petrolina, Pernambuco, para oferecer locação de veículos 100% elétricos a motoristas profissionais de aplicativo. Entregamos o veículo e tudo o que está em volta dele, para que o profissional trabalhe com mais eficiência.</p>
       </div>
       <div class="numeros">
         <div class="rv"><b data-conta="100">100%</b><span>Frota elétrica</span></div>
         <div class="rv" style="--i:1"><b data-conta="100">100%</b><span>Frota locada</span></div>
-        <div class="rv" style="--i:2"><b class="menor">BYD Dolphin Mini GL</b><span>O carro da frota</span></div>
-        <div class="rv" style="--i:3"><b class="menor">Petrolina · PE</b><span>Sede operacional</span></div>
+        <div class="rv" style="--i:2"><b class="menor">Petrolina · PE</b><span>Sede operacional</span></div>
       </div>
     </div>
   </section>
@@ -314,15 +314,15 @@ footer a{min-height:44px;display:inline-flex;align-items:center}
   <section class="secao estrutura" id="estrutura">
     <div class="miolo">
       <div class="recorte rv">
-        <figure><img src="assets/motorista.jpg" alt="Motorista usa o celular encostado em um carro elétrico branco enquanto ele recarrega." width="700" height="790" loading="lazy"></figure>
+        <figure><img src="assets/equipe.jpg" alt="Profissional da equipe acompanha a frota em um notebook, com carros elétricos recarregando ao fundo." width="834" height="941" loading="lazy"></figure>
       </div>
       <div>
         <p class="kicker rv">A estrutura</p>
         <h2 class="rv" style="--i:1">O carro é a parte que você vê.</h2>
         <p class="lede rv" style="--i:2">Menos tempo resolvendo problemas, mais tempo para produzir.</p>
         <ul class="itens">
-          <li class="rv"><span class="n">01</span><h3>Gestão do veículo</h3><p>Cada carro acompanhado de perto, quilômetro por quilômetro.</p></li>
-          <li class="rv"><span class="n">02</span><h3>Acompanhamento</h3><p>Uma equipe que entende a sua rotina. Qualquer dúvida, é só chamar.</p></li>
+          <li class="rv"><span class="n">01</span><h3>Gestão do veículo</h3><p>Processo padronizado que traz dignidade ao motorista, além de conforto e segurança ao passageiro.</p></li>
+          <li class="rv"><span class="n">02</span><h3>Acompanhamento</h3><p>Uma equipe que entende a sua rotina.</p></li>
           <li class="rv"><span class="n">03</span><h3>Manutenção</h3><p>Carro revisado e pronto para a rua.</p></li>
           <li class="rv"><span class="n">04</span><h3>Contrato</h3><p>Administração clara. A gente explica o que faz.</p></li>
           <li class="rv"><span class="n">05</span><h3>Recarga</h3><p>Acesso facilitado pela Eletrourb.</p></li>
