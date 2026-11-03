@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/sistema", "destination": "https://locaurb-sistema-iota.vercel.app/sistema" },
+    { "source": "/sistema/:path*", "destination": "https://locaurb-sistema-iota.vercel.app/sistema/:path*" }
+  ]
+}
