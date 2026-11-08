@@ -1,6 +1,11 @@
 {
   "rewrites": [
     { "source": "/sistema", "destination": "https://locaurb-sistema-iota.vercel.app/sistema" },
-    { "source": "/sistema/:path*", "destination": "https://locaurb-sistema-iota.vercel.app/sistema/:path*" }
+    { "source": "/sistema/:path*", "destination": "https://locaurb-sistema-iota.vercel.app/sistema/:path*" },
+    { "source": "/socios", "destination": "https://locaurb-sistema-iota.vercel.app/sistema/socios" },
+    { "source": "/socios/:path*", "destination": "https://locaurb-sistema-iota.vercel.app/sistema/socios/:path*" }
+  ],
+  "headers": [
+    { "source": "/socios(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
   ]
 }
